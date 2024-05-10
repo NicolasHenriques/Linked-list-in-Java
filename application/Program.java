@@ -96,6 +96,43 @@ public class Program {
 		node = ll.removeHead();
 		System.out.println("Removed node: " + node);
 		System.out.println(ll);
-
+		
+		//using the remove tail method
+		System.out.println("========REMOVETAIL========");
+		System.out.println(ll);
+		node = ll.removeTail();
+		System.out.println("Removed node: " + node);
+		System.out.println(ll);
+		
+		//using the remove node method
+		System.out.println("========REMOVENODE========");
+		System.out.println(ll);
+		node = ll.removeNode(3.0f);
+		System.out.println("Removed node: " + node);
+		System.out.println(ll);
+		node = ll.removeNode(4.0f);
+		System.out.println("Removed node: " + node);
+		System.out.println(ll);
+		
+		//adding more values for the next test
+		ll.append(5.0f);
+		ll.append(5.0f);
+		ll.append(5.0f);
+		ll.append(2.0f);
+		
+		/* TODO using the remove duplicates method
+		System.out.println("========REMOVEDUP========");
+		System.out.println(ll);
+		System.out.println(ll);*/
+		
+		//using the get head method
+		System.out.println("========GETHEAD========");
+		System.out.println(ll);
+		System.out.println("Head: " + ll.getHead());
+		
+		//using the get tail method
+		System.out.println("========GETTAIL========");
+		System.out.println(ll);
+		System.out.println("Tail: " + ll.getTail());
 	}
 }
