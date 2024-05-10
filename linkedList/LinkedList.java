@@ -6,7 +6,7 @@ public class LinkedList {
 	private int count;
 	
 	//constructor method
-	public LinkedList() { 
+	public LinkedList() { //O(1)
 		head = null;
 		count = 0;
 	}
@@ -76,7 +76,7 @@ public class LinkedList {
 	//order if the value is not already int the
 	//list. Returns true if the value was inserted
 	//and false if not
-	public boolean insertAscNoDup(float value) {
+	public boolean insertAscNoDup(float value) { //O(n)
 		boolean inserted = false;
 		if(isEmpty()) {
 			Node node = new Node(value, null);
@@ -152,7 +152,7 @@ public class LinkedList {
 	//order if the value is not already int the
 	//list. Returns true if the value was inserted
 	//and false if not
-	public boolean insertDescNoDup(float value) {
+	public boolean insertDescNoDup(float value) { //O(n)
 		boolean inserted = false;
 		if(isEmpty()) {
 			Node node = new Node(value, null);
@@ -190,14 +190,69 @@ public class LinkedList {
 	}
 	
 	//method that receives no parameters,
-	//removes the head and returns it's value
-	public Node removeHead() { 
+	//removes the head and returns it's value,
+	//returns null if the list is empty
+	public Node removeHead() { //O(1)
 		if(isEmpty()) return null;
 		Node node = new Node(head.getData(), null);
 		head = head.getNext();
 		count--;
 		return node;
 	}
+	
+	//method that receives no parameters,
+	//removes the tail and returns it's value,
+	//returns null if the list is empty
+	public Node removeTail() { //O(n)
+		if(isEmpty()) return null;
+		if(count == 1) return removeHead();
+		
+		Node node = new Node();		
+		Node aux = head;
+		
+		while(aux.getNext() != getTail()) {
+			aux = aux.getNext();
+		}
+		
+		node = getTail();
+		aux.setNext(null);
+		
+		count--;
+		return node;
+	}
+	
+	//method that receives a value, searches
+	//for it in the list, removes and returns
+	//it if found. If the value is not found,
+	//returns null.
+	public Node removeNode(float value) { //O(n)
+		if(isEmpty()) return null;
+		if(value == head.getData()) return removeHead();
+		if(value == getTail().getData()) return removeTail();
+		
+		Node node = new Node();
+		Node aux = head;
+		
+		while(aux.getNext() != null  && aux.getNext().getData() != value) {
+			aux = aux.getNext();
+		}
+		
+		if(aux.getNext() == null)
+			return null;
+		
+		if(aux.getNext().getData() == value) {
+			node = aux.getNext();
+			aux.setNext(node.getNext());
+			node.setNext(null);
+		}
+		
+		return node;
+	}
+	
+	//method that receives no parameters, removes
+	//duplicate elements and returns the amount
+	//of removed nodes
+	//TODO public int removeDup() {
 	
 	//method that receives no parameters
 	//and returns the head node
@@ -217,6 +272,14 @@ public class LinkedList {
 		}
 		
 		return tail;
+	}
+	
+	//method that receives a float as a
+	//parameters, searches for that value in
+	//the list and returns the node if found.
+	//Returns null if not. TODO
+	public Node getNode(float value) { //O(n)
+		return null;
 	}
 	
 	//method that receives no parameters
@@ -252,6 +315,12 @@ public class LinkedList {
 		head = null;
 		count = 0;
 	}
+	
+	//TODO public void sort() {
+	
+	//TODO public void reverse() {
+	
+	//TODO public boolean isEqual(LinkedList ll) {
 	
 	//toString method
 	@Override
