@@ -77,40 +77,17 @@ public class LinkedList {
 	//list. Returns true if the value was inserted
 	//and false if not
 	public boolean insertAscNoDup(float value) { //O(n)
-		boolean inserted = false;
-		if(isEmpty()) {
-			Node node = new Node(value, null);
-			head = node;
-			inserted = true;
+		Node aux = head;
+		while(aux != null && aux.getData() != value) {
+			aux = aux.getNext();
+		}
+		if(aux == null) {
+			insertAsc(value);
+			return true;
 		}
 		else {
-			if(value < head.getData()) {
-				Node node = new Node(value, head);
-				head = node;
-				inserted = true;
-			}
-			else {
-				Node search = head;
-				while(search != null) {
-					if(search.getNext() != null) {
-						if(search.getData() < value && search.getNext().getData() > value) {
-							Node node = new Node(value, search.getNext());
-							search.setNext(node);
-							inserted = true;
-							break;
-						}
-					}
-					search = search.getNext();
-				} 
-				if(search == null && value > getTail().getData()) {
-					append(value);
-					count--;
-					inserted = true;
-				}
-			}
+			return false;
 		}
-		if(inserted) count++;
-		return inserted;
 	}
 	
 	//method that receives a float value
@@ -153,40 +130,17 @@ public class LinkedList {
 	//list. Returns true if the value was inserted
 	//and false if not
 	public boolean insertDescNoDup(float value) { //O(n)
-		boolean inserted = false;
-		if(isEmpty()) {
-			Node node = new Node(value, null);
-			head = node;
-			inserted = true;
+		Node aux = head;
+		while(aux != null && aux.getData() != value) {
+			aux = aux.getNext();
+		}
+		if(aux == null) {
+			insertDesc(value);
+			return true;
 		}
 		else {
-			if(value > head.getData()) {
-				Node node = new Node(value, head);
-				head = node;
-				inserted = true;
-			}
-			else {
-				Node search = head;
-				while(search != null) {
-					if(search.getNext() != null) {
-						if(search.getData() > value && search.getNext().getData() < value) {
-							Node node = new Node(value, search.getNext());
-							search.setNext(node);
-							inserted = true;
-							break;
-						}
-					}
-					search = search.getNext();
-				} 
-				if(search == null && value < getTail().getData()) {
-					append(value);
-					count--;
-					inserted = true;
-				}
-			}
+			return false;
 		}
-		if(inserted) count++;
-		return inserted;
 	}
 	
 	//method that receives no parameters,
@@ -245,14 +199,39 @@ public class LinkedList {
 			aux.setNext(node.getNext());
 			node.setNext(null);
 		}
-		
+		count--;
 		return node;
 	}
 	
 	//method that receives no parameters, removes
 	//duplicate elements and returns the amount
-	//of removed nodes
-	//TODO public int removeDup() {
+	//of removed nodes 
+	public int removeDup() { // O(n²)
+		if(isEmpty()) return 0;
+		if(count == 1) return 0;
+		
+		Node i = head;
+		Node j = head;
+		Node current = head;		
+		int dupCount = 0;
+		
+		while(j != null) {
+			current = i;
+			while(i.getNext() != null) {
+				i = i.getNext();
+				
+				if(current.getData() == i.getData()) {
+					removeNode(current.getData());
+					dupCount++;
+					break;
+				}
+			}
+			j = j.getNext();
+			i = j;
+		}
+		
+		return dupCount;
+	}
 	
 	//method that receives no parameters
 	//and returns the head node
@@ -277,9 +256,22 @@ public class LinkedList {
 	//method that receives a float as a
 	//parameters, searches for that value in
 	//the list and returns the node if found.
-	//Returns null if not. TODO
+	//Returns null if not.
 	public Node getNode(float value) { //O(n)
-		return null;
+		if(isEmpty()) return null;
+		if(value == head.getData()) return getHead();
+		if(value == getTail().getData()) return getTail();
+		
+		Node aux = head;
+		
+		while(aux.getNext() != null  && aux.getNext().getData() != value) {
+			aux = aux.getNext();
+		}
+		
+		if(aux.getNext() == null)
+			return null;
+		
+		return aux.getNext();
 	}
 	
 	//method that receives no parameters
@@ -316,11 +308,70 @@ public class LinkedList {
 		count = 0;
 	}
 	
-	//TODO public void sort() {
+	//method that receives no parameters
+	//and doesn't return anything. It sorts
+	//the linked list in ascending order
+	public void sort() { //O(n²)
+		if(isEmpty()) return;
+		if(count == 1) return;
+		
+		Node i = head;
+		Node j = head;
+		Node min = head;
+		float aux;
+		
+		while(j != null) {
+			min = i;
+			while(i != null) {
+				if(i.getData() < min.getData()) {
+					aux = min.getData();
+					min.setData(i.getData());
+					i.setData(aux);
+				}
+				i = i.getNext();
+			}
+			j = j.getNext();
+			i = j;
+		}
+	}
 	
-	//TODO public void reverse() {
+	//method that receives no parameters
+	//and doesn't return anything. It 
+	//reverses the linked list
+	public void reverse() { //O(n) 
+		if(isEmpty()) return;
+		if(count == 1) return;
+		
+		Node previous = null;
+		Node current = head;
+		Node next = head.getNext();
+		
+		while(current != null) {
+			next = current.getNext();
+			current.setNext(previous);
+			previous = current;
+			current = next;
+		}
+		head = previous;
+	}
 	
-	//TODO public boolean isEqual(LinkedList ll) {
+	//method that receives a linked list
+	//and compares it to this list. Returns
+	//true if they're equal and false if not
+	public boolean isEqual(LinkedList list) { // O(n)
+		if(list.isEmpty() && isEmpty()) return true;
+		
+		Node i = head;
+		Node j = list.head;
+		while(i != null) {
+			if(i != j) {
+				return false;
+			}
+			i = i.getNext();
+			j = j.getNext();
+		}
+		return true;
+	}
 	
 	//toString method
 	@Override

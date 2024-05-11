@@ -1,8 +1,12 @@
-// Made by: Nicolas Henriques de Almeida - RA: 10418357
+// Made by:
+// - Natan Moreira Passos - RA: 10417916
+// - Nicolas Henriques de Almeida - RA: 10418357
 // References:
 // - Code Incomplete Zine, by André Kishimoto
+// - https://profkishimoto.github.io/edi03d-2024-1/
 // - https://profkishimoto.github.io/edi03d-2024-1/conteudo/semana-10/LinkedList.pdf
-// - 
+// - https://www.geeksforgeeks.org/how-to-sort-a-linkedlist-in-java/
+// - https://www.geeksforgeeks.org/reverse-a-linked-list/
 
 package application;
 
@@ -72,6 +76,7 @@ public class Program {
 		ll.insertDesc(7.0f);
 		ll.insertDesc(6.0f);
 		ll.insertDesc(4.0f);
+		ll.insertDesc(7.0f);
 		ll.insertDesc(8.0f);
 		System.out.println(ll);
 		
@@ -116,14 +121,18 @@ public class Program {
 		
 		//adding more values for the next test
 		ll.append(5.0f);
+		ll.append(4.0f);
 		ll.append(5.0f);
+		ll.append(3.0f);
 		ll.append(5.0f);
 		ll.append(2.0f);
 		
-		/* TODO using the remove duplicates method
+		//using the remove duplicates method
 		System.out.println("========REMOVEDUP========");
 		System.out.println(ll);
-		System.out.println(ll);*/
+		int count = ll.removeDup();
+		System.out.println("Duplicates removed: " + count);
+		System.out.println(ll);
 		
 		//using the get head method
 		System.out.println("========GETHEAD========");
@@ -134,5 +143,58 @@ public class Program {
 		System.out.println("========GETTAIL========");
 		System.out.println(ll);
 		System.out.println("Tail: " + ll.getTail());
+		
+		//using the get node method
+		System.out.println("========GETNODE========");
+		System.out.println(ll);
+		System.out.println(ll.getNode(3.0f));
+		System.out.println(ll.getNode(7.0f));
+		
+		//using the count method
+		System.out.println("========COUNT========");
+		System.out.println(ll);
+		System.out.println("Count: " + ll.count());
+		
+		//using the is empty method
+		System.out.println("========ISEMPTY========");
+		System.out.println(ll);
+		System.out.println("Is empty: " + ll.isEmpty());
+		
+		//using the clear method
+		System.out.println("========CLEAR========");
+		System.out.println(ll);
+		ll.clear();
+		System.out.println(ll);
+		
+		//adding more values for the next example
+		ll.append(5.0f);
+		ll.append(4.0f);
+		ll.append(6.0f);
+		ll.append(3.0f);
+		ll.append(1.0f);
+		ll.append(2.0f);
+		
+		//using the sort method
+		System.out.println("========SORT========");
+		System.out.println(ll);
+		ll.sort();
+		System.out.println(ll);
+		
+		//using the reverse method
+		System.out.println("========REVERSE========");
+		System.out.println(ll);
+		ll.reverse();
+		System.out.println(ll);
+		System.out.println("Head: " + ll.getHead());
+		System.out.println("Tail: " + ll.getTail());
+		
+		//using the is equal method
+		System.out.println("========ISEQUAL========");
+		LinkedList testList = ll;
+		System.out.println(ll);
+		System.out.println(testList);
+		System.out.println(ll.isEqual(testList));
+		LinkedList testList2 = new LinkedList();
+		System.out.println(ll.isEqual(testList2));
 	}
 }
